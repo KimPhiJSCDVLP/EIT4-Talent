@@ -13,6 +13,7 @@ namespace EIT4Talent.Migrator
 
         public static void Main(string[] args)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             ParseArgs(args);
 
             using (var bootstrapper = AbpBootstrapper.Create<EIT4TalentMigratorModule>())

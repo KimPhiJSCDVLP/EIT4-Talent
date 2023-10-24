@@ -2,6 +2,7 @@
 using Abp.Dependency;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace EIT4Talent.Web.Host.Startup
 {
@@ -12,12 +13,18 @@ namespace EIT4Talent.Web.Host.Startup
             CreateHostBuilder(args).Build().Run();
         }
 
-        internal static IHostBuilder CreateHostBuilder(string[] args) =>
-            Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
-                .UseCastleWindsor(IocManager.Instance.IocContainer);
+        internal static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            return
+                Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+                    .ConfigureWebHostDefaults(webBuilder =>
+                    {
+
+                        webBuilder.UseStartup<Startup>();
+                    })
+                    .UseCastleWindsor(IocManager.Instance.IocContainer);
+        }
     }
 }

@@ -20,6 +20,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
+using EIT4Talent.EntityFrameworkCore;
 
 namespace EIT4Talent.Web.Host.Startup
 {
@@ -55,6 +57,8 @@ namespace EIT4Talent.Web.Host.Startup
             AuthConfigurer.Configure(services, _appConfiguration);
 
             services.AddSignalR();
+            services.AddDbContext<EIT4TalentDbContext>(options =>
+                options.UseNpgsql(_appConfiguration.GetConnectionString("Default")));
 
             // Configure CORS for angular2 UI
             services.AddCors(

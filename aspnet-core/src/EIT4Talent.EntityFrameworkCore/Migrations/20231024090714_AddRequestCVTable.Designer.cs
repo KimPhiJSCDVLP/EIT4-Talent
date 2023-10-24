@@ -3,6 +3,7 @@ using System;
 using EIT4Talent.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EIT4Talent.Migrations
 {
     [DbContext(typeof(EIT4TalentDbContext))]
-    partial class EIT4TalentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231024090714_AddRequestCVTable")]
+    partial class AddRequestCVTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -3,6 +3,7 @@ using System;
 using EIT4Talent.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EIT4Talent.Migrations
 {
     [DbContext(typeof(EIT4TalentDbContext))]
-    partial class EIT4TalentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231024084632_AddCVTable")]
+    partial class AddCVTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1720,157 +1722,6 @@ namespace EIT4Talent.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("EIT4Talent.Entities.Request", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Level")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Note")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("integer");
-
-                    b.Property<long?>("ProjectToolRequestId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("TimeNeed")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("UserType")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorUserId");
-
-                    b.HasIndex("LastModifierUserId");
-
-                    b.ToTable("Requests");
-                });
-
-            modelBuilder.Entity("EIT4Talent.Entities.RequestCV", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<int?>("ApplyLevel")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("CVId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool?>("EmailSent")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("FinalLevel")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("HRNote")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<int?>("InterviewLevel")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("InterviewTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool?>("Interviewed")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("OnboardDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Percentage")
-                        .HasColumnType("text");
-
-                    b.Property<long>("RequestId")
-                        .HasColumnType("bigint");
-
-                    b.Property<float>("Salary")
-                        .HasColumnType("real");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CVId");
-
-                    b.HasIndex("CreatorUserId");
-
-                    b.HasIndex("LastModifierUserId");
-
-                    b.HasIndex("RequestId");
-
-                    b.ToTable("RequestCVs");
-                });
-
             modelBuilder.Entity("EIT4Talent.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")
@@ -2183,52 +2034,6 @@ namespace EIT4Talent.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("EIT4Talent.Entities.Request", b =>
-                {
-                    b.HasOne("EIT4Talent.Authorization.Users.User", "CreatorUser")
-                        .WithMany()
-                        .HasForeignKey("CreatorUserId");
-
-                    b.HasOne("EIT4Talent.Authorization.Users.User", "LastModifierUser")
-                        .WithMany()
-                        .HasForeignKey("LastModifierUserId");
-
-                    b.Navigation("CreatorUser");
-
-                    b.Navigation("LastModifierUser");
-                });
-
-            modelBuilder.Entity("EIT4Talent.Entities.RequestCV", b =>
-                {
-                    b.HasOne("EIT4Talent.Entities.CV", "CV")
-                        .WithMany("RequestCVs")
-                        .HasForeignKey("CVId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EIT4Talent.Authorization.Users.User", "CreatorUser")
-                        .WithMany()
-                        .HasForeignKey("CreatorUserId");
-
-                    b.HasOne("EIT4Talent.Authorization.Users.User", "LastModifierUser")
-                        .WithMany()
-                        .HasForeignKey("LastModifierUserId");
-
-                    b.HasOne("EIT4Talent.Entities.Request", "Request")
-                        .WithMany("RequestCVs")
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CV");
-
-                    b.Navigation("CreatorUser");
-
-                    b.Navigation("LastModifierUser");
-
-                    b.Navigation("Request");
-                });
-
             modelBuilder.Entity("EIT4Talent.MultiTenancy.Tenant", b =>
                 {
                     b.HasOne("EIT4Talent.Authorization.Users.User", "CreatorUser")
@@ -2325,16 +2130,6 @@ namespace EIT4Talent.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
-                });
-
-            modelBuilder.Entity("EIT4Talent.Entities.CV", b =>
-                {
-                    b.Navigation("RequestCVs");
-                });
-
-            modelBuilder.Entity("EIT4Talent.Entities.Request", b =>
-                {
-                    b.Navigation("RequestCVs");
                 });
 #pragma warning restore 612, 618
         }

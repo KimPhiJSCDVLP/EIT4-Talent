@@ -7,12 +7,12 @@ namespace EIT4Talent.EntityFrameworkCore
     {
         public static void Configure(DbContextOptionsBuilder<EIT4TalentDbContext> builder, string connectionString)
         {
-            builder.UseSqlServer(connectionString);
+            builder.UseNpgsql(connectionString);
         }
 
         public static void Configure(DbContextOptionsBuilder<EIT4TalentDbContext> builder, DbConnection connection)
         {
-            builder.UseSqlServer(connection);
+            builder.UseNpgsql(connection);
         }
     }
 }

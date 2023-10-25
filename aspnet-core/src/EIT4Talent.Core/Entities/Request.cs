@@ -19,6 +19,15 @@ namespace EIT4Talent.Entities
         public long? ProjectToolRequestId { get; set; }
         public DateTime? TimeNeed { get; set; }
         public Priority Priority { get; set; }
+        public long BranchId { get; set; }
+        [ForeignKey(nameof(BranchId))]
+        public Branch Branch { get; set; }
+
+        public long SubPositionId { get; set; }
+        [ForeignKey(nameof(SubPositionId))]
+        public SubPosition SubPosition { get; set; }
+
+        public ICollection<RequestSkill> RequestSkills { get; set; }
         public ICollection<RequestCV> RequestCVs { get; set; }
     }
 }

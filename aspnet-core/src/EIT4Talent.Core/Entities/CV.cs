@@ -28,6 +28,21 @@ namespace EIT4Talent.Entities
         public CVStatus CVStatus { get; set; }
         public bool? isClone { get; set; }
         public int? TenantId { get; set; }
+        public long? CVSourceId { get; set; }
+        [ForeignKey(nameof(CVSourceId))]
+        public CVSource CVSource { get; set; }
+
+        public long BranchId { get; set; }
+        [ForeignKey(nameof(BranchId))]
+        public Branch Branch { get; set; }
+
+        public long SubPositionId { get; set; }
+        [ForeignKey(nameof(SubPositionId))]
+        public SubPosition SubPosition { get; set; }
+
+        public ICollection<CVSkill> CVSkills { get; set; }
+        public ICollection<CVEducation> CVEducations { get; set; }
         public ICollection<RequestCV> RequestCVs { get; set; }
+        public ICollection<EmailStatusHistory> EmailStatusHistories { get; set; }
     }
 }

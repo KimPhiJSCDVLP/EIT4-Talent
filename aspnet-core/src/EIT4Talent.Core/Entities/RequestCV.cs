@@ -25,6 +25,10 @@ namespace EIT4Talent.Entities
         public long RequestId { get; set; }
         [ForeignKey(nameof(RequestId))]
         public virtual Request Request { get; set; }
+        public virtual ICollection<RequestCVInterview> RequestCVInterviews { get; set; }
+        public virtual ICollection<RequestCVCapabilityResult> RequestCVCapabilityResults { get; set; }
+        public virtual ICollection<RequestCVStatusHistory> RequestCVStatusHistories { get; set; }
+        public virtual ICollection<RequestCVStatusChangeHistory> RequestCVStatusChangeHistoies { get; set; }
         public bool? EmailSent { get; set; }
         public bool? Interviewed { get; set; }
         public string Percentage { get; set; }
